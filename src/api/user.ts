@@ -6,6 +6,7 @@ import { User } from "@/types/User"
 export const getUser = async (idUser: string): Promise<User | undefined> => {
   //const docRef = doc(CHEMIN)
   const docRef = doc(db, "users", idUser)
+  console.log("toto")
 
   const docSnapshot = await getDoc(docRef)
   if (docSnapshot.exists()) {
