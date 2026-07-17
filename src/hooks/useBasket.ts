@@ -17,9 +17,7 @@ export const useBasket = () => {
     const productAlreadyInBasket = findObjectById(idProductToAdd, basketCopy)
 
     if (productAlreadyInBasket) {
-      const indexToIncrement = findIndexById(idProductToAdd, basketCopy)
-      basketCopy[indexToIncrement].quantity += 1
-      persistBasket(basketCopy, username)
+      incrementBasketProduct(idProductToAdd, username)
       return
     }
 
@@ -28,9 +26,43 @@ export const useBasket = () => {
     persistBasket([newBasketProduct, ...basketCopy], username)
   }
 
+  const incrementBasketProduct = (idBasketProduct: string, username: string) => {
+    const basketCopy = deepClone(basket)
+    const index = findIndexById(idBasketProduct, basketCopy)
+    if (index === -1) return
+    basketCopy[index].quantity += 1
+    persistBasket(basketCopy, username)
+  }
+
+  // Décrémente la quantité ; retire la ligne quand elle tomberait à 0.
+  const decrementBasketProduct = (idBasketProduct: string, username: string) => {
+    const basketCopy = deepClone(basket)
+    const index = findIndexById(idBasketProduct, basketCopy)
+    if (index === -1) return
+
+    if (basketCopy[index].quantity <= 1) {
+      handleDeleteBasketProduct(idBasketProduct, username)
+      return
+    }
+    basketCopy[index].quantity -= 1
+    persistBasket(basketCopy, username)
+  }
+
   const handleDeleteBasketProduct = (idBasketProduct: string, username: string) => {
     persistBasket(removeObjectById(idBasketProduct, basket), username)
   }
 
-  return { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct }
+  const clearBasket = (username: string) => {
+    persistBasket([], username)
+  }
+
+  return {
+    basket,
+    setBasket,
+    handleAddToBasket,
+    incrementBasketProduct,
+    decrementBasketProduct,
+    handleDeleteBasketProduct,
+    clearBasket,
+  }
 }

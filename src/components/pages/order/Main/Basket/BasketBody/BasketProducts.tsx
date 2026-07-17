@@ -15,6 +15,8 @@ export default function BasketProducts() {
   const {
     basket,
     isModeAdmin,
+    incrementBasketProduct,
+    decrementBasketProduct,
     handleDeleteBasketProduct,
     menu,
     handleProductSelected,
@@ -26,6 +28,16 @@ export default function BasketProducts() {
   const handleOnDelete = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
     event.stopPropagation()
     if (username) handleDeleteBasketProduct(id, username)
+  }
+
+  const handleIncrement = (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    event.stopPropagation()
+    if (username) incrementBasketProduct(id, username)
+  }
+
+  const handleDecrement = (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    event.stopPropagation()
+    if (username) decrementBasketProduct(id, username)
   }
 
   const getPrice = (menuProduct: MenuProduct) => {
@@ -54,6 +66,8 @@ export default function BasketProducts() {
                   imageSource={menuProduct.imageSource ? menuProduct.imageSource : IMAGE_COMING_SOON}
                   quantity={basketProduct.quantity}
                   onDelete={(event) => handleOnDelete(event, basketProduct.id)}
+                  onIncrement={(event) => handleIncrement(event, basketProduct.id)}
+                  onDecrement={(event) => handleDecrement(event, basketProduct.id)}
                   isClickable={isModeAdmin}
                   onClick={() => handleProductSelected(basketProduct.id)}
                   isSelected={checkIfProductIsClicked(basketProduct.id, productSelected.id)}

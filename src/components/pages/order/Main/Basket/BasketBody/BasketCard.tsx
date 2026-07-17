@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components"
 import { MdDeleteForever } from "react-icons/md"
+import { FiMinus, FiPlus } from "react-icons/fi"
 import { theme } from "@/theme/theme"
 import CasinoEffect from "@/components/reusable-ui/CasinoEffect"
 import Sticker from "@/components/reusable-ui/Sticker"
@@ -13,6 +14,8 @@ type BasketCardProps = {
   isClickable?: boolean,
   onClick?: React.MouseEventHandler<HTMLDivElement>,
   onDelete?: React.MouseEventHandler<HTMLDivElement>,
+  onIncrement?: React.MouseEventHandler<HTMLButtonElement>,
+  onDecrement?: React.MouseEventHandler<HTMLButtonElement>,
   isSelected?: boolean,
   isPublicised?: boolean,
 }
@@ -26,6 +29,8 @@ export default function BasketCard({
   isClickable,
   onClick,
   onDelete,
+  onIncrement,
+  onDecrement,
   isSelected,
   isPublicised,
 }: BasketCardProps) {
@@ -46,7 +51,23 @@ export default function BasketCard({
           <span className="price">{price}</span>
         </div>
         <div className="quantity">
+          <button
+            type="button"
+            className="stepper-button"
+            aria-label={`Retirer un ${title}`}
+            onClick={onDecrement}
+          >
+            <FiMinus />
+          </button>
           <CasinoEffect count={`x ${quantity}`} />
+          <button
+            type="button"
+            className="stepper-button"
+            aria-label={`Ajouter un ${title}`}
+            onClick={onIncrement}
+          >
+            <FiPlus />
+          </button>
         </div>
       </div>
     </BasketCardStyled>
@@ -129,8 +150,29 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      gap: 8px;
       margin-right: 20px;
       font-size: ${theme.fonts.size.SM};
+
+      .stepper-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        padding: 0;
+        border: 1px solid ${theme.colors.primary};
+        border-radius: ${theme.borderRadius.circle};
+        background: transparent;
+        color: ${theme.colors.primary};
+        cursor: pointer;
+        transition: all 200ms ease;
+
+        &:hover {
+          background: ${theme.colors.primary};
+          color: ${theme.colors.white};
+        }
+      }
     }
   }
 

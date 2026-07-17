@@ -3,6 +3,10 @@ import { BasketProductQuantity, MenuProduct } from "@/types/Product"
 import { findObjectById } from "@/utils/array"
 import { convertStringToBoolean } from "@/utils/string"
 
+export const calculateTotalItems = (basket: BasketProductQuantity[]): number => {
+  return basket.reduce((total, basketProduct) => total + basketProduct.quantity, 0)
+}
+
 export const calculateSumToPay = (
   basket: BasketProductQuantity[],
   menu: MenuProduct[] | undefined
