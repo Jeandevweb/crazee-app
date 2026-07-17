@@ -14,9 +14,9 @@ import {
 import { isEmpty } from "@/utils/array"
 import Loader from "./Loader"
 import { CSSTransition, TransitionGroup } from "react-transition-group"
-import { menuAnimation } from "@/theme/animations"
+import { menuAnimation, ribbonAnimation } from "@/theme/animations"
 import { convertStringToBoolean } from "@/utils/string"
-import RibbonAnimated, { ribbonAnimation } from "./RibbonAnimated"
+import RibbonAnimated from "./RibbonAnimated"
 import { useParams } from "react-router-dom"
 
 export default function Menu() {

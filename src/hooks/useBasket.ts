@@ -6,46 +6,30 @@ import { BasketProductQuantity } from "@/types/Product"
 export const useBasket = () => {
   const [basket, setBasket] = useState<BasketProductQuantity[]>([])
 
+  // Met à jour le state local et persiste le panier — toujours les deux ensemble.
+  const persistBasket = (basketUpdated: BasketProductQuantity[], username: string) => {
+    setBasket(basketUpdated)
+    setLocalStorage(username, basketUpdated)
+  }
+
   const handleAddToBasket = (idProductToAdd: string, username: string) => {
     const basketCopy = deepClone(basket)
     const productAlreadyInBasket = findObjectById(idProductToAdd, basketCopy)
 
     if (productAlreadyInBasket) {
-      incrementProductAlreadyInBasket(idProductToAdd, basketCopy, username)
+      const indexToIncrement = findIndexById(idProductToAdd, basketCopy)
+      basketCopy[indexToIncrement].quantity += 1
+      persistBasket(basketCopy, username)
       return
     }
 
-    createNewBasketProduct(idProductToAdd, basketCopy, setBasket, username)
-  }
-
-  const incrementProductAlreadyInBasket = (
-    idProductToAdd: string,
-    basketCopy: BasketProductQuantity[],
-    username: string
-  ) => {
-    const indexOfBasketProductToIncrement = findIndexById(idProductToAdd, basketCopy)
-    basketCopy[indexOfBasketProductToIncrement].quantity += 1
-    setBasket(basketCopy)
-    setLocalStorage(username, basketCopy)
-  }
-
-  const createNewBasketProduct = (
-    idProductToAdd: string,
-    basketCopy: BasketProductQuantity[],
-    setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>,
-    username: string
-  ) => {
-    // we do not re-create a whole product, we only add the extra info a basket product has in comparison to a menu product
+    // On ne recrée pas le produit entier : seule l'info propre au panier (id + quantité).
     const newBasketProduct = { id: idProductToAdd, quantity: 1 }
-    const newBasket = [newBasketProduct, ...basketCopy]
-    setBasket(newBasket)
-    setLocalStorage(username, newBasket)
+    persistBasket([newBasketProduct, ...basketCopy], username)
   }
 
   const handleDeleteBasketProduct = (idBasketProduct: string, username: string) => {
-    const basketUpdated = removeObjectById(idBasketProduct, basket)
-    setBasket(basketUpdated)
-    setLocalStorage(username, basketUpdated)
+    persistBasket(removeObjectById(idBasketProduct, basket), username)
   }
 
   return { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct }

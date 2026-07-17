@@ -85,6 +85,8 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
 }
 
 // 3. Consommation du context
+// Le hook est volontairement co-localisé avec son Provider (pattern React usuel).
+// eslint-disable-next-line react-refresh/only-export-components
 export const useOrderContext = () => {
   const orderContextData = useContext(OrderContext)
   if (orderContextData === undefined) throw new Error("useOrderContext() can only be used within OrderContextProvider")
