@@ -24,8 +24,8 @@ export default function EditForm() {
       [name]: value,
     }
 
-    setProductSelected(productBeingUpdated) // cette ligne update le formulaire
-    username && handleEdit(productBeingUpdated, username) // cette ligne update le menu
+    setProductSelected(productBeingUpdated) // met à jour le formulaire
+    if (username) handleEdit(productBeingUpdated, username) // met à jour le menu
   }
 
   const handleOnFocus = (event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -36,7 +36,6 @@ export default function EditForm() {
   const handleOnBlur = (event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
     const valueOnBlur = event.target.value
     if (valueOnFocus !== valueOnBlur) {
-      console.log("ça a changé !!")
       displaySuccessMessage()
     }
   }

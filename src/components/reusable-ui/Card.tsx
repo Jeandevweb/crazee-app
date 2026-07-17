@@ -84,7 +84,6 @@ type CardStyledProps = { isHoverable?: boolean, isSelected?: boolean }
 const CardStyled = styled.div<CardStyledProps>`
   ${({ isHoverable }) => isHoverable && hoverableStyle}
   border-radius: ${theme.borderRadius.extraRound};
-  /* border: 1px solid red; */
   height: 330px;
 
   .card {
@@ -116,7 +115,6 @@ const CardStyled = styled.div<CardStyledProps>`
       animation: ${fadeInFromRight} ${theme.animations.speed.slow} ease-out;
 
       .icon {
-        /* border: 1px solid blue; */
         height: 100%;
         width: 100%;
       }
@@ -131,7 +129,6 @@ const CardStyled = styled.div<CardStyledProps>`
     }
 
     .image {
-      /* border: 2px solid green; */
       margin-top: 30px;
       margin-bottom: 20px;
       /* position: relative; */
@@ -143,7 +140,6 @@ const CardStyled = styled.div<CardStyledProps>`
 
       .overlap {
         .overlap-image {
-          /* border: 1px solid red; */
           position: absolute;
           top: 0;
           bottom: 0;

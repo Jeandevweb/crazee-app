@@ -41,15 +41,15 @@ export default function Menu() {
     if (!username) return
     handleDelete(idProductToDelete, username)
     handleDeleteBasketProduct(idProductToDelete, username)
-    idProductToDelete === productSelected.id && setProductSelected(EMPTY_PRODUCT)
+    if (idProductToDelete === productSelected.id) setProductSelected(EMPTY_PRODUCT)
   }
 
   const handleAddButton = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, idProductToAdd: string) => {
     event.stopPropagation()
-    username && handleAddToBasket(idProductToAdd, username)
+    if (username) handleAddToBasket(idProductToAdd, username)
   }
 
-  let cardContainerClassName = isModeAdmin ? "card-container is-hoverable" : "card-container"
+  const cardContainerClassName = isModeAdmin ? "card-container is-hoverable" : "card-container"
 
   // affichage
   if (menu === undefined) return <Loader />
@@ -107,7 +107,6 @@ const MenuStyled = styled.div`
 
     &.is-hoverable {
       :hover {
-        /* border: 1px solid red; */
         transform: scale(1.05);
         transition: ease-out 0.4s;
       }

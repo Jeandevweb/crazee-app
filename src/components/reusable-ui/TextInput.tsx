@@ -4,19 +4,10 @@ import { theme } from "@/theme/theme"
 
 type TextInputVersion = "normal" | "minimalist"
 
-// type TextInputProps = {
-//   onChange?: React.ChangeEventHandler<HTMLInputElement>,
-//   Icon: JSX.Element,
-//   className?: string,
-//   version?: TextInputVersion,
-//   //  ...extraProps: unknown
-// } & React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-
 type TextInputProps = {
   Icon: JSX.Element,
   version?: TextInputVersion,
 } & ComponentPropsWithRef<"input">
-
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   ({ onChange, Icon, className, version = "normal", ...extraProps }, ref) => {
@@ -28,6 +19,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     )
   }
 )
+TextInput.displayName = "TextInput"
 
 type TextInputStyledProps = {
   version: TextInputVersion
@@ -55,11 +47,6 @@ const TextInputStyled = styled.div<TextInputStyledProps>`
     }
   }
 
-  /* ${(props) => {
-    if (props.version === "normal") return extraStyleNormal
-    if (props.version === "minimalist") return extraStyleMinimalist
-  }} */
-
   ${({ version }) => extraStyle[version]}
 `
 
@@ -83,11 +70,11 @@ const extraStyleMinimalist = css`
   color: ${theme.colors.greyBlue};
 
   input {
-    background: ${theme.colors.background_white}; ////+
+    background: ${theme.colors.background_white};
     color: ${theme.colors.dark};
 
     &:focus {
-      outline: 0; //// add outline
+      outline: 0;
     }
   }
 `

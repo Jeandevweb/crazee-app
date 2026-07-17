@@ -25,7 +25,7 @@ export default function BasketProducts() {
 
   const handleOnDelete = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
     event.stopPropagation()
-    username && handleDeleteBasketProduct(id, username)
+    if (username) handleDeleteBasketProduct(id, username)
   }
 
   const getPrice = (menuProduct: MenuProduct) => {
@@ -71,21 +71,18 @@ export default function BasketProducts() {
 }
 
 const BasketProductsStyled = styled.div`
-  /* border: 1px solid red; */
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
 
   .card-container {
-    /* border: 1px solid blue; */
     margin: 10px 16px;
     height: 86px;
     box-sizing: border-box;
     position: relative;
     :first-child {
       margin-top: 20px;
-      /* border: 1px solid red; */
     }
     :last-child {
       margin-bottom: 20px;
