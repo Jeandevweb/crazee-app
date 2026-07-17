@@ -27,7 +27,10 @@ type OrderContextType = {
   basket: BasketProductQuantity[],
   setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>,
   handleAddToBasket: (idProductToAdd: string, username: string) => void,
+  incrementBasketProduct: (idBasketProduct: string, username: string) => void,
+  decrementBasketProduct: (idBasketProduct: string, username: string) => void,
   handleDeleteBasketProduct: (idBasketProduct: string, username: string) => void,
+  clearBasket: (username: string) => void,
   handleProductSelected: (idProductClicked: string) => Promise<void>,
 }
 
@@ -43,7 +46,15 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
   const [productSelected, setProductSelected] = useState<MenuProduct>(EMPTY_PRODUCT)
   const titleEditRef = useRef<HTMLInputElement>(null)
   const { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu } = useMenu()
-  const { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct } = useBasket()
+  const {
+    basket,
+    setBasket,
+    handleAddToBasket,
+    incrementBasketProduct,
+    decrementBasketProduct,
+    handleDeleteBasketProduct,
+    clearBasket,
+  } = useBasket()
 
   const handleProductSelected = async (idProductClicked: string) => {
     if (!isModeAdmin || !menu) return
@@ -77,7 +88,10 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     basket,
     setBasket,
     handleAddToBasket,
+    incrementBasketProduct,
+    decrementBasketProduct,
     handleDeleteBasketProduct,
+    clearBasket,
     handleProductSelected,
   }
 
