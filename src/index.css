@@ -1,3 +1,39 @@
+:root {
+  --color-dark: #17161a;
+  --color-incognito: #333;
+  --color-white: #ffffff;
+  --color-surface: #ffffff;
+  --color-background_white: #f5f5f7;
+  --color-background_dark: #292729;
+  --color-primary: #ffa01b;
+  --color-app-frame: #ffa01b;
+  --color-green: green;
+  --color-success: #60bd4f;
+  --color-red: #e25549;
+  --color-redSecondary: #c4151c;
+  --color-blue: #51a7e1;
+  --color-greyLight: #e4e5e9;
+  --color-greyMedium: #a7a8ad;
+  --color-greySemiDark: #93a2b1;
+  --color-greyDark: #6f737e;
+  --color-greyBlue: #747b91;
+  --color-loginLine: #f56a2c;
+}
+
+:root[data-theme="dark"] {
+  --color-dark: #f1f1f4; /* texte : passe en clair */
+  --color-white: #ffffff; /* reste clair (texte sur zones sombres) */
+  --color-surface: #26252b; /* fond des cartes / navbar / champs */
+  --color-background_white: #161519; /* canvas principal */
+  --color-background_dark: #100f13; /* chrome plus sombre */
+  --color-app-frame: #0d0d10; /* cadre extérieur de la page order */
+  --color-greyLight: #3a3942; /* bordures sur fond sombre */
+  --color-greyMedium: #b7b8bf;
+  --color-greySemiDark: #aab6c4;
+  --color-greyDark: #b9bcc6;
+  --color-greyBlue: #9aa1b4;
+}
+
 body {
   box-sizing: border-box;
   margin: 0;
@@ -6,6 +42,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Open Sans", sans-serif;
+  background: var(--color-background_white);
 }
 
 code {

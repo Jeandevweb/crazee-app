@@ -87,7 +87,7 @@ const CardStyled = styled.div<CardStyledProps>`
   height: 330px;
 
   .card {
-    background: ${theme.colors.white};
+    background: ${theme.colors.surface};
     box-sizing: border-box;
     width: 240px;
     height: 330px;
