@@ -49,25 +49,25 @@ export default function BasketCard({
             <span>{title}</span>
           </div>
           <span className="price">{price}</span>
-        </div>
-        <div className="quantity">
-          <button
-            type="button"
-            className="stepper-button"
-            aria-label={`Retirer un ${title}`}
-            onClick={onDecrement}
-          >
-            <FiMinus />
-          </button>
-          <CasinoEffect count={`x ${quantity}`} />
-          <button
-            type="button"
-            className="stepper-button"
-            aria-label={`Ajouter un ${title}`}
-            onClick={onIncrement}
-          >
-            <FiPlus />
-          </button>
+          <div className="quantity">
+            <button
+              type="button"
+              className="stepper-button"
+              aria-label={`Retirer un ${title}`}
+              onClick={onDecrement}
+            >
+              <FiMinus />
+            </button>
+            <CasinoEffect count={`x ${quantity}`} />
+            <button
+              type="button"
+              className="stepper-button"
+              aria-label={`Ajouter un ${title}`}
+              onClick={onIncrement}
+            >
+              <FiPlus />
+            </button>
+          </div>
         </div>
       </div>
     </BasketCardStyled>
@@ -82,7 +82,7 @@ type BasketCardStyledProps = {
 const BasketCardStyled = styled.div<BasketCardStyledProps>`
   cursor: ${({ $isClickable }) => ($isClickable ? "pointer" : "auto")};
   box-sizing: border-box;
-  height: 86px;
+  height: 100px;
   padding: 8px 16px;
   display: grid;
   grid-template-columns: 30% 1fr;
@@ -108,29 +108,30 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
   .text-info {
     user-select: none;
     box-sizing: border-box;
-    display: grid;
-    grid-template-columns: 70% 1fr;
+    display: flex;
+    align-items: center;
     font-size: ${theme.fonts.size.P0};
     color: ${theme.colors.primary};
 
     .left-info {
-      display: grid;
-      grid-template-rows: 60% 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
       margin-left: 21px;
-      /* align-items: center; */
+      min-width: 0;
       .title {
         display: flex;
         align-items: center;
         font-family: ${theme.fonts.family.stylish};
         font-size: ${theme.fonts.size.P3};
-        line-height: 32px;
+        line-height: 28px;
         font-weight: ${theme.fonts.weights.bold};
         color: ${theme.colors.dark};
         /* sans cette div avec "min-width: 0", l'ellipsis ne fonctionne pas dans un span : https://semicolon.dev/tutorial/css/text-overflow-ellipsis-doesnt-work#:~:text=If%20your%20text%2Doverflow%20is,Grid%20or%20on%20a%20Table. */
         min-width: 0;
         span {
           overflow: hidden;
-          /* width: 100%; */
           white-space: nowrap;
           text-overflow: ellipsis;
         }
@@ -140,37 +141,42 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
         font-size: ${theme.fonts.size.SM};
         font-weight: ${theme.fonts.weights.medium};
         font-family: ${theme.fonts.family.openSans};
-        /* color: ${theme.colors.white}; */
       }
-    }
 
-    .quantity {
-      box-sizing: border-box;
-      font-weight: ${theme.fonts.weights.medium};
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 8px;
-      margin-right: 20px;
-      font-size: ${theme.fonts.size.SM};
-
-      .stepper-button {
+      /* Steppers placés sous le prix, alignés à gauche pour ne pas passer sous
+         l'overlay rouge de suppression qui recouvre la droite de la carte au survol. */
+      .quantity {
+        box-sizing: border-box;
+        font-weight: ${theme.fonts.weights.medium};
         display: flex;
         align-items: center;
-        justify-content: center;
-        width: 22px;
-        height: 22px;
-        padding: 0;
-        border: 1px solid ${theme.colors.primary};
-        border-radius: ${theme.borderRadius.circle};
-        background: transparent;
-        color: ${theme.colors.primary};
-        cursor: pointer;
-        transition: all 200ms ease;
+        justify-content: flex-start;
+        gap: 6px;
+        margin-top: 2px;
+        font-size: ${theme.fonts.size.SM};
 
-        &:hover {
-          background: ${theme.colors.primary};
-          color: ${theme.colors.white};
+        .stepper-button {
+          /* z-index > celui de l'overlay de suppression (1) : les steppers
+             restent cliquables même si l'overlay venait à les chevaucher. */
+          position: relative;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 22px;
+          height: 22px;
+          padding: 0;
+          border: 1px solid ${theme.colors.primary};
+          border-radius: ${theme.borderRadius.circle};
+          background: transparent;
+          color: ${theme.colors.primary};
+          cursor: pointer;
+          transition: all 200ms ease;
+
+          &:hover {
+            background: ${theme.colors.primary};
+            color: ${theme.colors.white};
+          }
         }
       }
     }

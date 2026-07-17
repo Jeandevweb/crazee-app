@@ -92,7 +92,7 @@ const BasketProductsStyled = styled.div`
 
   .card-container {
     margin: 10px 16px;
-    height: 86px;
+    height: 100px;
     box-sizing: border-box;
     position: relative;
     :first-child {
