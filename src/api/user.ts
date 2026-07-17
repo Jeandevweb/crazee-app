@@ -9,7 +9,7 @@ export const getUser = async (userId: string): Promise<User | undefined> => {
 export const createUser = async (userId: string): Promise<User> => {
   const newUser: User = {
     username: userId,
-    menu: fakeMenu.SMALL,
+    menu: fakeMenu.DEFAULT,
   }
   writeUser(newUser)
   return newUser

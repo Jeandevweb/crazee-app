@@ -1,11 +1,14 @@
+import { useState } from "react"
 import styled from "styled-components"
+import { TbArrowsSort } from "react-icons/tb"
 import { useOrderContext } from "@/context/OrderContext"
 import { theme } from "@/theme/theme"
 import { formatPrice } from "@/utils/maths"
 import Card from "@/components/reusable-ui/Card"
+import SelectInput from "@/components/reusable-ui/SelectInput"
 import EmptyMenuAdmin from "./EmptyMenuAdmin"
 import EmptyMenuClient from "./EmptyMenuClient"
-import { checkIfProductIsClicked } from "./helper"
+import { checkIfProductIsClicked, sortMenu, SORT_OPTIONS, SortOption } from "./helper"
 import {
   EMPTY_PRODUCT,
   IMAGE_COMING_SOON,
@@ -31,7 +34,8 @@ export default function Menu() {
     handleDeleteBasketProduct,
     handleProductSelected,
   } = useOrderContext()
-  // state
+
+  const [sortOption, setSortOption] = useState<SortOption>("default")
 
   const { username } = useParams()
 
@@ -59,9 +63,22 @@ export default function Menu() {
     if (username) return <EmptyMenuAdmin onReset={() => resetMenu(username)} />
   }
 
+  const sortedMenu = sortMenu(menu, sortOption)
+
   return (
-    <TransitionGroup component={MenuStyled} className="menu">
-      {menu.map(({ id, title, imageSource, price, isAvailable, isPublicised }) => {
+    <MenuLayoutStyled>
+      <MenuToolbarStyled>
+        <SelectInput
+          name="sort"
+          value={sortOption}
+          onChange={(event) => setSortOption(event.target.value as SortOption)}
+          options={SORT_OPTIONS}
+          Icon={<TbArrowsSort />}
+          className="sort-select"
+        />
+      </MenuToolbarStyled>
+      <TransitionGroup component={MenuStyled} className="menu">
+        {sortedMenu.map(({ id, title, imageSource, price, isAvailable, isPublicised }) => {
         return (
           <CSSTransition classNames={"menu-animation"} key={id} timeout={300}>
             <div className={cardContainerClassName}>
@@ -81,19 +98,41 @@ export default function Menu() {
               />
             </div>
           </CSSTransition>
-        )
-      })}
-    </TransitionGroup>
+          )
+        })}
+      </TransitionGroup>
+    </MenuLayoutStyled>
   )
 }
 
+const MenuLayoutStyled = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`
+
+const MenuToolbarStyled = styled.div`
+  background: ${theme.colors.background_white};
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 50px 0;
+
+  .sort-select {
+    min-width: 220px;
+    border: 1px solid ${theme.colors.greyLight};
+  }
+`
+
 const MenuStyled = styled.div`
   background: ${theme.colors.background_white};
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
   grid-row-gap: 60px;
-  padding: 50px 50px 150px;
+  padding: 30px 50px 150px;
   justify-items: center;
   box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
   overflow-y: scroll;
