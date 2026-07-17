@@ -1,64 +1,40 @@
-import { useState } from "react";
-import { fakeMenu } from "@/fakeData/fakeMenu";
-import { deepClone } from "@/utils/array";
-import { syncBothMenus } from "@/api/product";
-import { MenuProduct } from "@/types/Product";
+import { useState } from "react"
+import { fakeMenu } from "@/fakeData/fakeMenu"
+import { deepClone, findIndexById, removeObjectById } from "@/utils/array"
+import { syncBothMenus } from "@/api/product"
+import { MenuProduct } from "@/types/Product"
 
 export const useMenu = () => {
-  const [menu, setMenu] = useState<MenuProduct[] | undefined>(undefined);
+  const [menu, setMenu] = useState<MenuProduct[] | undefined>(undefined)
 
-  // comportements (gestionnaire de state ou "state handlers")
+  // Met à jour le state local et persiste le menu — toujours les deux ensemble,
+  // pour que l'affichage et le stockage ne divergent jamais.
+  const commitMenu = (menuUpdated: MenuProduct[], username: string) => {
+    setMenu(menuUpdated)
+    syncBothMenus(username, menuUpdated)
+  }
+
   const handleAdd = (newProduct: MenuProduct, username: string) => {
-    if (menu) {
-      // 1. copie du tableau
-      const menuCopy = deepClone(menu);
-
-      // 2. manip de la copie du tableau
-      const menuUpdated = [newProduct, ...menuCopy];
-
-      // 3. update du state
-      setMenu(menuUpdated);
-      syncBothMenus(username, menuUpdated);
-    }
-  };
+    if (!menu) return
+    commitMenu([newProduct, ...menu], username)
+  }
 
   const handleDelete = (idOfProductToDelete: string, username: string) => {
-    if (menu) {
-      //1. copy du state
-      const menuCopy = deepClone(menu);
-
-      //2. manip de la copie state
-      const menuUpdated = menuCopy.filter(
-        (product) => product.id !== idOfProductToDelete
-      );
-
-      //3. update du state
-      setMenu(menuUpdated);
-      syncBothMenus(username, menuUpdated);
-    }
-  };
+    if (!menu) return
+    commitMenu(removeObjectById(idOfProductToDelete, menu), username)
+  }
 
   const handleEdit = (productBeingEdited: MenuProduct, username: string) => {
-    // 1. copie du state (deep clone)
-    if (menu) {
-      const menuCopy = deepClone(menu);
-
-      // 2. manip de la copie du state
-      const indexOfProductToEdit = menu.findIndex(
-        (menuProduct) => menuProduct.id === productBeingEdited.id
-      );
-      menuCopy[indexOfProductToEdit] = productBeingEdited;
-
-      // 3. update du state
-      setMenu(menuCopy);
-      syncBothMenus(username, menuCopy);
-    }
-  };
+    if (!menu) return
+    const menuCopy = deepClone(menu)
+    const indexOfProductToEdit = findIndexById(productBeingEdited.id, menuCopy)
+    menuCopy[indexOfProductToEdit] = productBeingEdited
+    commitMenu(menuCopy, username)
+  }
 
   const resetMenu = (username: string) => {
-    setMenu(fakeMenu.LARGE);
-    syncBothMenus(username, fakeMenu.LARGE);
-  };
+    commitMenu(fakeMenu.LARGE, username)
+  }
 
-  return { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu };
-};
+  return { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu }
+}
