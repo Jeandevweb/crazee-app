@@ -1,20 +1,23 @@
 import { BasketProductQuantity, MenuProduct } from "@/types/Product"
-import { getMenu } from "@/api/product"
+import { authenticateUser } from "@/api/user"
 import { getLocalStorage } from "@/utils/window"
 
-const intialiseMenu = async (
+// On passe par authenticateUser (et non une simple lecture) pour couvrir l'accès
+// direct à /order/:username sans être passé par le login : l'utilisateur est
+// alors créé à la volée, ce qui évite un Loader bloqué indéfiniment.
+const initialiseMenu = async (
   username: string,
   setMenu: React.Dispatch<React.SetStateAction<MenuProduct[] | undefined>>
 ) => {
-  const menuReceived = await getMenu(username)
-  setMenu(menuReceived)
+  const user = await authenticateUser(username)
+  setMenu(user.menu)
 }
 
-const intialiseBasket = (
+const initialiseBasket = (
   username: string,
   setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>
 ) => {
-  const basketReceived = getLocalStorage(username) // localStorage est synchrone, pas besoin de "await".
+  const basketReceived = getLocalStorage(username) // localStorage est synchrone : pas de "await".
   if (basketReceived) setBasket(basketReceived as BasketProductQuantity[])
 }
 
@@ -23,6 +26,6 @@ export const initialiseUserSession = async (
   setMenu: React.Dispatch<React.SetStateAction<MenuProduct[] | undefined>>,
   setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>
 ) => {
-  await intialiseMenu(username, setMenu)
-  intialiseBasket(username, setBasket)
+  await initialiseMenu(username, setMenu)
+  initialiseBasket(username, setBasket)
 }
