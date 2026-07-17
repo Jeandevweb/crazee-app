@@ -33,7 +33,7 @@ export const useMenu = () => {
   }
 
   const resetMenu = (username: string) => {
-    commitMenu(fakeMenu.LARGE, username)
+    commitMenu(fakeMenu.DEFAULT, username)
   }
 
   return { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu }
