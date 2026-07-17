@@ -13,16 +13,21 @@ import Welcome from "./Welcome"
 export default function LoginForm() {
   // state
   const [username, setUsername] = useState<string>("")
+  const [error, setError] = useState<string>("")
   const navigate = useNavigate()
 
   // comportements
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setError("")
 
-    const userReceived = await authenticateUser(username)
-
-    setUsername("")
-    navigate(`order/${userReceived.username}`)
+    try {
+      const userReceived = await authenticateUser(username)
+      setUsername("")
+      navigate(`order/${userReceived.username}`)
+    } catch {
+      setError("Impossible d'accéder à votre espace. Réessayez.")
+    }
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +50,7 @@ export default function LoginForm() {
         />
 
         <Button label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
+        {error && <p className="error-message">{error}</p>}
       </div>
     </LoginFormStyled>
   )
@@ -77,5 +83,14 @@ const LoginFormStyled = styled.form`
 
   .input-login {
     margin: 18px 0; // must be handled in Parent
+  }
+
+  .error-message {
+    color: ${theme.colors.white};
+    background: ${theme.colors.redSecondary};
+    border-radius: ${theme.borderRadius.round};
+    padding: 8px 12px;
+    margin-top: 15px;
+    font-size: ${theme.fonts.size.P0};
   }
 `
