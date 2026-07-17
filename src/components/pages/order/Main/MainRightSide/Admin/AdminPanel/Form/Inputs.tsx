@@ -7,7 +7,6 @@ import { MenuProduct } from "@/types/Product"
 
 export type InputsProps = {
   product: MenuProduct
-  // onChange: React.ChangeEventHandler<HTMLInputElement> | React.ChangeEventHandler<HTMLSelectElement>
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
   onFocus?: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>
   onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>
@@ -17,7 +16,6 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product
   const inputTexts = getInputTextsConfig(product)
   const inputSelects = getSelectInputConfig(product)
 
-  // affichage
   return (
     <InputsStyled>
       {inputTexts.map((input) => (
@@ -43,10 +41,9 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product
     </InputsStyled>
   )
 })
+Inputs.displayName = "Inputs"
 
 const InputsStyled = styled.div`
-  /* border: 1px solid red; */
-  /* background: blue; */
   grid-area: 1 / 2 / -2 / 3;
 
   display: grid;

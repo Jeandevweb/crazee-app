@@ -9,11 +9,6 @@ type FormProps = {
 } & InputsProps
 
 const Form = React.forwardRef<HTMLInputElement, FormProps>(({ product, onSubmit, children, onChange, onFocus, onBlur }, ref) => {
-  // state (vide)
-
-  // comportements (vide)
-
-  // affichage
   return (
     <FormStyled onSubmit={onSubmit}>
       <ImagePreview imageSource={product.imageSource} title={product.title} />
@@ -22,11 +17,11 @@ const Form = React.forwardRef<HTMLInputElement, FormProps>(({ product, onSubmit,
     </FormStyled>
   )
 })
+Form.displayName = "Form"
 
 export default Form
 
 const FormStyled = styled.form`
-  /* border: 2px solid black; */
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-template-rows: repeat(4, 1fr);
@@ -36,7 +31,6 @@ const FormStyled = styled.form`
   grid-row-gap: 8px;
 
   .form-footer {
-    /* background: green; */
     grid-area: 4 / -2 / -1 / -1;
     display: flex;
     align-items: center;

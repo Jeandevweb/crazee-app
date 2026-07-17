@@ -36,7 +36,6 @@ export default function SelectInput({
 }
 
 const SelectInputStyled = styled.div`
-  /* border: 1px solid yellow; */
   background-color: ${theme.colors.background_white};
   border-radius: ${theme.borderRadius.round};
   display: flex;
@@ -44,7 +43,6 @@ const SelectInputStyled = styled.div`
   padding: 8px 16px;
 
   .icon {
-    /* border: 1px solid red; */
     font-size: ${theme.fonts.size.P1};
     margin-right: 13px;
     color: ${theme.colors.greyBlue};
@@ -52,7 +50,6 @@ const SelectInputStyled = styled.div`
   }
 
   select {
-    /* border: 1px solid blue; */
     background: ${theme.colors.background_white};
     border: none;
     font-size: ${theme.fonts.size.SM};

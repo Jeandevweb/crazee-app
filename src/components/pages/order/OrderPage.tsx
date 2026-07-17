@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import { theme } from "@/theme/theme"
-//@ts-ignore
 import Main from "./Main/Main"
 import Navbar from "./Navbar/Navbar"
 import { initialiseUserSession } from "./helpers/initialiseUserSession"
@@ -9,19 +8,15 @@ import { useParams } from "react-router-dom"
 import { useOrderContext } from "@/context/OrderContext"
 
 export default function OrderPage() {
-  // state
   const { username } = useParams()
   const { setMenu, setBasket } = useOrderContext()
 
-  // 1e possibilité : vérification via une condition dans le useEffect()
-  // 2e possibilité : non-null assertion operator : "!"
-  // 3e possibilité : fall-back value (valeur de secours), nullish coalescing (opérateur de coalescence des nuls)
-
+  // Charge le menu et le panier de l'utilisateur au montage, et à chaque
+  // changement de username (accès à un autre espace via l'URL).
   useEffect(() => {
     if (username) initialiseUserSession(username, setMenu, setBasket)
-  }, [])
+  }, [username, setMenu, setBasket])
 
-  //affichage (render)
   return (
     <OrderPageStyled>
       <div className="container">

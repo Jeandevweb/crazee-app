@@ -1,7 +1,6 @@
 export function formatPrice(priceToFormat: number | string): string {
   let price = priceToFormat
 
-  // @TODO: perhaps change this to if(!price) return 0
   if (!price) return "0,00 €"
   price = replaceFrenchCommaWithDot(price)
 

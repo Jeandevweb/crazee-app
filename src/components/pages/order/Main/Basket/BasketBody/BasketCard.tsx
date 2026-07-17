@@ -60,7 +60,6 @@ type BasketCardStyledProps = {
 
 const BasketCardStyled = styled.div<BasketCardStyledProps>`
   cursor: ${({ $isClickable }) => ($isClickable ? "pointer" : "auto")};
-  /* border: 1px solid red; */
   box-sizing: border-box;
   height: 86px;
   padding: 8px 16px;
@@ -76,7 +75,6 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
   .image {
     box-sizing: border-box;
     height: 70px;
-    /* border: 1px solid red; */
     img {
       padding: 5px;
       box-sizing: border-box;
@@ -89,8 +87,6 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
   .text-info {
     user-select: none;
     box-sizing: border-box;
-    /* background: green; */
-    /* border: 1px solid green; */
     display: grid;
     grid-template-columns: 70% 1fr;
     font-size: ${theme.fonts.size.P0};
@@ -104,7 +100,6 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
       .title {
         display: flex;
         align-items: center;
-        /* background: yellow; */
         font-family: ${theme.fonts.family.stylish};
         font-size: ${theme.fonts.size.P3};
         line-height: 32px;
@@ -121,7 +116,6 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
       }
 
       .price {
-        /* background: blue; */
         font-size: ${theme.fonts.size.SM};
         font-weight: ${theme.fonts.weights.medium};
         font-family: ${theme.fonts.family.openSans};
@@ -131,8 +125,6 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
 
     .quantity {
       box-sizing: border-box;
-      /* border: 1px solid lightblue; */
-      /* background: lightblue; */
       font-weight: ${theme.fonts.weights.medium};
       display: flex;
       align-items: center;
@@ -150,7 +142,6 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
   /* hover de la card */
   :hover {
     .delete-button {
-      /* border: 1px solid red; */
       border: none;
       box-sizing: border-box;
       position: absolute;
