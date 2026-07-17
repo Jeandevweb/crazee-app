@@ -16,7 +16,7 @@ export default function AdminPanel() {
 
 const AdminPanelStyled = styled.div`
   height: 240px;
-  background: ${theme.colors.white};
+  background: ${theme.colors.surface};
   border: 1px solid ${theme.colors.greyLight};
   box-shadow: ${theme.shadows.subtle};
   box-sizing: border-box; // ajouter ça sinon ça fait grossir le panel

@@ -5,6 +5,9 @@ import { theme } from "@/theme/theme"
 import { RouterProvider } from "react-router-dom"
 import { router } from "@/routers/router"
 import { OrderContextProvider } from "@/context/OrderContext"
+import { initThemeMode } from "@/hooks/useThemeMode"
+
+initThemeMode()
 
 const rootElement = document.getElementById("root")
 if (!rootElement) throw new Error('Element with id "root" not found')

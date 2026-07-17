@@ -28,7 +28,7 @@ const TabStyled = styled.button`
   font-size: ${theme.fonts.size.P0};
   color: ${theme.colors.greySemiDark};
 
-  background: ${theme.colors.white};
+  background: ${theme.colors.surface};
   box-shadow: ${theme.shadows.subtle};
 
   // border

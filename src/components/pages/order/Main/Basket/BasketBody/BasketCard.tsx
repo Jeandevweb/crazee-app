@@ -88,7 +88,7 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
   grid-template-columns: 30% 1fr;
 
   border-radius: ${theme.borderRadius.round};
-  background: ${theme.colors.white};
+  background: ${theme.colors.surface};
   box-shadow: ${theme.shadows.cardBasket};
 
   position: relative;

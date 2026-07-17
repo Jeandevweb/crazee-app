@@ -51,15 +51,16 @@ const TextInputStyled = styled.div<TextInputStyledProps>`
 `
 
 const extraStyleNormal = css`
-  background-color: ${theme.colors.white};
+  background-color: ${theme.colors.surface};
   padding: 18px 28px;
   color: ${theme.colors.greySemiDark};
 
   input {
+    background: ${theme.colors.surface};
     color: ${theme.colors.dark};
 
     &::placeholder {
-      background: ${theme.colors.white};
+      background: ${theme.colors.surface};
     }
   }
 `

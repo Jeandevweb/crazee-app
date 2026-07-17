@@ -14,7 +14,7 @@ export default function Navbar() {
 }
 
 const NavbarStyled = styled.nav`
-  background: ${theme.colors.white};
+  background: ${theme.colors.surface};
   height: 10vh;
   display: flex;
   justify-content: space-between;

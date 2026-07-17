@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import Profile from "./Profile"
 import ToggleButton from "@/components/reusable-ui/ToggleButton"
+import ThemeToggle from "./ThemeToggle"
 import ToastAdmin from "./ToastAdmin"
 import { toast } from "react-toastify"
 import { useOrderContext } from "@/context/OrderContext"
@@ -27,6 +28,7 @@ export default function NavbarRightSide() {
 
   return (
     <NavbarRightSideStyled>
+      <ThemeToggle />
       <ToggleButton
         isChecked={isModeAdmin}
         labelIfUnchecked="ACTIVER LE MODE ADMIN"
